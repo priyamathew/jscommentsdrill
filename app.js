@@ -9,18 +9,21 @@
 
 $(document).ready(function() {
   $('#new_comment_button').on("click", function(event) {
-    event.preventDefault();
-    buildcommentbox();
+    event.preventDefault();  
+    // buildcommentbox();
+    $(commentBox).appendTo("#comment_list");
     $(this).hide();
-    
+
   $('#create_comment').on("click", function(event) {
     event.preventDefault();
-    // $(this).closest('form').hide();
-    // $('#new_comment').hide();
-    $('#new_comment_button').show();
+    // console.log($(this).closest('form').hide());
     var authorName = $('input#authorName').val();   
-    var commentText = $('textarea#comment_text').val();   
-    createcomment(commentText, authorName);
+    var commentText = $('textarea#comment_text').val();
+      $('#new_comment').remove();
+      $('#new_comment_button').show();
+    if (commentText.length > 0) {
+      createcomment(commentText, authorName);
+    }
   });  
   });
 });
@@ -30,7 +33,6 @@ function createcomment(commentText, authorName) {
   $(commentTemplate).appendTo('#comment_list');
 }
 
-function buildcommentbox() { 
+
   var commentBox = "<form id='new_comment'><textarea id='comment_text'></textarea><input type='text' id='authorName' placeholder='Your Name'><input id='create_comment' type='submit' value='Create Comment'></form>"
-  $(commentBox).appendTo("#comment_list");
-}
+
